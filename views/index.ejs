@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .btn-custom {
+      background-color: #ffcc33; /* Yellow button color */
+      color: #333;
+      border: none;
+      border-radius: 25px;
+      padding: 0.8rem 2rem;
+      margin: 0.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    .btn-custom:hover {
+      background-color: #e6b800;
+      color: white; 
+    }
+
+    body {
+      background-color: #93c5ee; /* Light blue background inspired by your Canva design */
+      color: #333; /* Neutral text color */
+      font-family: 'Arial', sans-serif;
+    }
+
+  .navbar {
+    background: rgba(154, 103, 236, 0.8); /* Semi-transparent white */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  }
+  .navbar-brand img {
+    margin: auto; /* Center the logo */
+  }
+  .nav-link {
+    font-weight: bold;
+    margin: 0 10px;
+  }
+</style>
+  <title>ClearHorizon Store</title>
+</head>
+<body>
+    <!-- Dropdown Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="/images/logo.png" alt="ClearHorizon Logo"> ClearHorizon Store
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <% if (user) { %>
+              <!-- Products Dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+                  Products
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/shopping">All Products</a></li>
+                  <li><a class="dropdown-item" href="/shopping/electronics">Electronics</a></li>
+                  <li><a class="dropdown-item" href="/shopping/fashion">Fashion</a></li>
+                </ul>
+              </li>
+              
+              <% if (user.role === "admin") { %>
+                <!-- Management Dropdown (Admin Only) -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+                    Management
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/inventory">Inventory</a></li>
+                    <li><a class="dropdown-item" href="/product">Add Product</a></li>
+                  </ul>
+                </li>
+              <% } %>
+              
+              <!-- Account Dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+                  Account
+                </a>
+                <ul class="dropdown-menu">
+                  <% if (user.role !== "admin") { %>
+                    <li><a class="dropdown-item" href="/cart">Cart</a></li>
+                  <% } %>
+                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+              </li>
+            <% } else { %>
+              <!-- Guest Menu -->
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/register">Sign Up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/login">Sign In</a>
+              </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Welcome Section -->
+    <div class="container">
+        <% if (user) { %>
+          <% if (user.role === "admin") { %>
+            <p>Back to <a href="/inventory" class="text-decoration-none text-dark">Inventory</a></p>
+          <% } else { %>
+            <p>Continue <a href="/shopping" class="text-decoration-none text-dark">Shopping</a></p>
+          <% } %>
+        <% } else { %>
+          <h1>Welcome to ClearHorizon Store!</h1>
+          <p>Your One-Stop Solution for Seamless Shopping and Secure Payments. </p>
+          <div>
+            <a href="/register" class="btn btn-custom">Sign Up now</a>
+            <a href="/login" class="btn btn-custom">Sign In</a>
+          </div>
+        <% } %>
+    </div>
+</body>
+</html>

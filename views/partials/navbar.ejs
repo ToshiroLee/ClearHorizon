@@ -1,0 +1,73 @@
+<!-- Dropdown Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img src="/images/logo.png" alt="ClearHorizon Logo"> ClearHorizon Store
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <% if (user) { %>
+          <!-- Products Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+              Products
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/shopping">All Products</a></li>
+              <li><a class="dropdown-item" href="/shopping/electronics">Electronics</a></li>
+              <li><a class="dropdown-item" href="/shopping/fashion">Fashion</a></li>
+            </ul>
+          </li>
+          
+          <% if (user.role === "admin") { %>
+            <!-- Management Dropdown (Admin Only) -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+                Management
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/inventory">Inventory</a></li>
+                <li><a class="dropdown-item" href="/product">Add Product</a></li>
+              </ul>
+            </li>
+            
+            <!-- Users Dropdown (Admin Only) -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+                Users
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/users">Manage Users</a></li>
+                <li><a class="dropdown-item" href="/users/add">Add User</a></li>
+              </ul>
+            </li>
+          <% } %>
+          
+          <!-- Account Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+              Account
+            </a>
+            <ul class="dropdown-menu">
+              <% if (user.role !== "admin") { %>
+                <li><a class="dropdown-item" href="/cart">Cart</a></li>
+              <% } %>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+          </li>
+        <% } else { %>
+          <!-- Guest Menu -->
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/register">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/login">Sign In</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
